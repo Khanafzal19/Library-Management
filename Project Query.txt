@@ -1,0 +1,61 @@
+
+
+create table Students(
+	Stu_id		int		primary key		not null,
+	Name		text					not null,
+	Roll_no		smallint				not null,
+	Branch		char(25)				not null,
+	Mobile		bigint
+	);
+
+insert into Students(Stu_id,Name,Roll_no,Branch,Mobile)
+values(1,'Ramesh',3,'Civil',8974563210),
+(2,'Sadhna',17,'Automobile',9632587410),
+(3,'Saradh',34,'Mechanical',9873214560),
+(4,'Mayur',46,'It',9123654870),
+(5,'Bilal',40,'Electronics',9865327410),
+(6,'Adil',26,'Automobile',9032145670);
+
+
+
+create table Book(
+	Stu_id			int			not null,
+	Book_Name		text		not null,
+	Book_Author		char(20)	not null,
+	Issue_Date		date		not null,
+	Due_Date		date		not null,
+	foreign key(Stu_id) references students(Stu_id)
+	);
+	
+insert into Book(Stu_id,Book_Name,Book_Author,Issue_Date,Due_Date)
+values(6,'Design Engineering','kirpal Singh','03-01-2022','09-01-2022'),
+(4,'Mathematics','Rama Krishna','04-01-2022','13-01-2022'),
+(5,'Production','Harun Mishra','14-01-2022','24-01-2022'),
+(3,'Electrical','Punam Singh','25-01-2022','07-02-2022'),
+(1,'Strength Of Material','Ravi Kumar','06-02-2022','13-02-2022'),
+(2,'Material Science','Sanjay Rao','09-02-2022','20-02-2022');
+
+
+
+------------------------------------DQL--------------------------------------------------
+select Students.Stu_id, Students.Name, Students.Branch, Books.Book_Name, Books.Issue_Date
+from Students inner join Books on Students.Stu_id=Books.Stu_id order by Stu_id;
+
+select Students.Stu_id, Students.Name, Students.Branch, Books.Book_Name, Books.Issue_Date
+from Students left join Books on Students.Stu_id=Books.Stu_id order by Issue_Date;
+
+select Students.Stu_id, Students.Name, Students.Branch, Books.Book_Name, Books.Issue_Date
+from Students Right join Books on Students.Stu_id=Books.Stu_id;
+
+select * from Students where name like '%ra%';
+select Issue_Date, Due_date from Books order by Stu_id;
+select count(name),Branch from Students group by Branch;
+
+
+-------------------------------------DML---------------------------------------------------
+update Students set Branch='Mechanical' where Stu_id=4;
+update Books set Due_Date='10-02-2022' where Book_Name='Electrical';
+alter table Students add column email varchar(30);
+alter table Students drop column email;
+
+
